@@ -1,5 +1,6 @@
 package controller;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -10,8 +11,14 @@ import model.Adresa;
 import model.Finansije;
 import model.Smer;
 import model.Student;
+import model.TipUsera;
+import model.User;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.FetchType;
+
 import model.Contact;
 
 public class HibernateController {
@@ -138,16 +145,95 @@ public class HibernateController {
 //				System.out.println("==================================");
 //			}
 //		}
+
+//		List<Double> cene = crud.vratiCeneNaOsnovuPoena(80.0);
+//		if (cene.isEmpty()) {
+//			System.out.println("Nemam cene za zeljeni broj poena");
+//		} else {
+//			System.out.println("Cene u ponudi:");
+//			for (Double c : cene) {
+//				System.out.println(c);
+//			}
+//		}
+
+		// ********************* 09.12.2021 *******************
+
+//		String grad = "Novi Sad";
+//		List<Student> listaStudenata = crud.vratiStudenteIzOdredjenogGrada(grad);
+//		// poziv metode vraca sve studente iz odredjenog grada
+//		// interesantno je da HQL upit prihvata i navodjenje polja po dubini:
+//		// String hql = "FROM Student WHERE adresa.grad = :imeGrada";
+//		
+//		if (listaStudenata.isEmpty()) {
+//			System.out.println("Nisam nasao studenta iz grada " + grad);
+//		} else {
+//			for (Student s : listaStudenata) {
+//				System.out.printf("Id= %-3d" , s.getIdStudent());
+//				System.out.printf(" Ime= %-8s" , s.getIme());
+//				System.out.printf(" Prezime= %-13s" , s.getPrezime());
+//				System.out.printf(" Broj indeksa= %-7s" , s.getBrojIndexa());
+//				System.out.printf(" Grad= %-10s" , s.getAdresa().getGrad());
+//				System.out.printf(" Ulica= %-17s" , s.getAdresa().getUlica());
+//				System.out.printf(" Finansiranje= %-17s" , s.getFinansije());
+//				System.out.printf(" Smer= %-10s" , s.getSmer().getNazivSmera());
+//				System.out.println();
+//				// Ako student ima u bazi i svoje kontakte, onda ih ispisuje
+//				// PAZNJA: u polju lista kontakta u Student klasi, potrebno je staviti fetch = FetchType.EAGER
+//				List<Contact> kontakti = s.getContact();
+//				if (kontakti.size() == 0) {
+//					System.out.println("Student nema kontakte");
+//				} else {
+//					System.out.println("Njegovi kontakti:");
+//					for (Contact c : kontakti) {
+//						System.out.println("Mob:" + c.getMobilniTelefon() + "\t Fix:" + c.getFiksniTelefon() + "\t Email:" + c.getEmail());
+//					}
+//				}
+//			}
+//		}
+
+		// Punimo users tabelu
+//		crud.ubaciUsera("ccc", "ccc123", TipUsera.PREDAVAC);
+//		crud.ubaciUsera("aaa", "aaa123", TipUsera.STUDENT);
+//		crud.ubaciUsera("bbb", "bbb123", TipUsera.ADMINISTRACIJA);
+//		crud.ubaciUsera("ddd", "ddd123", TipUsera.IT);
+//		crud.ubaciUsera("eee", "eee123", TipUsera.PREDAVAC);
+
+//		User user = crud.vratiUsera("bbb", "bbb123");
+//		if (user != null) {
+//			System.out.println("ID:\t\t" + user.getIdUser());
+//			System.out.println("UserName:\t" + user.getUserName());
+//			System.out.println("Tip:\t\t" + user.getTip());
+//			System.out.println("Password:\t" + user.getPassword());
+//		}
+
+//		List<String> sviUserNameovi = crud.vratiSveUserNameove();
+//		for (String name : sviUserNameovi) {
+//			System.out.println(name);
+//		}
+
+		List<Integer> sviTipoviInt = crud.vratiSveTipoveUsera_SQL();
+		if (sviTipoviInt != null) {
+			System.out.println("Vracam sve tipove usera kroz Native SQL:");
+			for (Integer intTip : sviTipoviInt) {
+				System.out.println(intTip);
+			}
+		} else {
+			System.out.println("vratiSveTipoveUsera_SQL nista nije vratio...");
+		}
 		
-		List<Double> cene = crud.vratiCeneNaOsnovuPoena(80.0);
-		System.out.println("Cene u ponudi:");
-		for (Double c : cene) {
-			System.out.println(c);
+		System.out.println("===========================================");
+		List<TipUsera> sviTipoviEnum = crud.vratiSveTipoveUsera_HQL();
+		if (sviTipoviEnum != null) {
+			System.out.println("Vracam sve tipove usera kroz HQL:");
+			for (TipUsera enumTip : sviTipoviEnum) {
+				System.out.println(enumTip);
+			}
+		} else {
+			System.out.println("vratiSveTipoveUsera_HQL nista nije vratio...");
 		}
 		
 		
 		
 
 	}
-
 }

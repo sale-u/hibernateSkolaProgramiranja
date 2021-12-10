@@ -37,7 +37,7 @@ public class Student {
 	@Enumerated
 	private Finansije finansije;	// enum podatak
 	
-	@ElementCollection(fetch = FetchType.EAGER)	// po defaultu FetchType je LAZY, a moze da se stavi i EAGER
+	@ElementCollection (fetch = FetchType.EAGER)	// po defaultu FetchType je LAZY, a moze da se stavi i EAGER
 	@JoinTable( name = "KONTAKTI", 
 	joinColumns = @JoinColumn(name = "STUDENT_ID"))
 	private List<Contact> contact = new ArrayList<>();	// List podataka prema posebnoj tabeli koja NIJE entitet
