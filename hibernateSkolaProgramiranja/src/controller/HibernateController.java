@@ -7,12 +7,15 @@ import org.hibernate.cfg.Configuration;
 
 import dao.CrudDao;
 import dao.HqlCrud;
+import dao.SlozeneHqlMetode;
 import model.Adresa;
 import model.Finansije;
 import model.Smer;
 import model.Student;
 import model.TipUsera;
 import model.User;
+import slozeniModeli.StudentSmerDetails;
+import slozeniModeli.StudentSmerDetailsHQL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +131,7 @@ public class HibernateController {
 
 		// ********************* 07.12.2021 *******************
 
-		HqlCrud crud = new HqlCrud();
+//		HqlCrud crud = new HqlCrud();
 
 //		List<Student> listaStudenata = crud.vratiStudentaPoBrojuIndexa("234NM");
 //
@@ -211,29 +214,53 @@ public class HibernateController {
 //			System.out.println(name);
 //		}
 
-		List<Integer> sviTipoviInt = crud.vratiSveTipoveUsera_SQL();
-		if (sviTipoviInt != null) {
-			System.out.println("Vracam sve tipove usera kroz Native SQL:");
-			for (Integer intTip : sviTipoviInt) {
-				System.out.println(intTip);
+//		List<Integer> sviTipoviInt = crud.vratiSveTipoveUsera_SQL();
+//		if (sviTipoviInt != null) {
+//			System.out.println("Vracam sve tipove usera kroz Native SQL:");
+//			for (Integer intTip : sviTipoviInt) {
+//				System.out.println(intTip);
+//			}
+//		} else {
+//			System.out.println("vratiSveTipoveUsera_SQL nista nije vratio...");
+//		}
+//		
+//		System.out.println("===========================================");
+//		List<TipUsera> sviTipoviEnum = crud.vratiSveTipoveUsera_HQL();
+//		if (sviTipoviEnum != null) {
+//			System.out.println("Vracam sve tipove usera kroz HQL:");
+//			for (TipUsera enumTip : sviTipoviEnum) {
+//				System.out.println(enumTip);
+//			}
+//		} else {
+//			System.out.println("vratiSveTipoveUsera_HQL nista nije vratio...");
+//		}
+		
+		
+		// ******************* 14.12.2021 *********************
+		
+		SlozeneHqlMetode crud = new SlozeneHqlMetode();
+		
+		// definisemo vise WHERE filtera u SQL upitu 
+		String drzava = "Srbija";
+		Finansije finansije = Finansije.BUDZET;
+		String smer = "";
+		
+//		List<StudentSmerDetails> listaIzBaze = crud.vratiSlozenuTabelu(drzava, finansije, smer);
+		
+		List<StudentSmerDetailsHQL> listaIzBaze = crud.vratiSlozenuTabelu_HQL(drzava, finansije, smer);
+		
+		if (listaIzBaze != null) {
+			for (StudentSmerDetailsHQL ssd : listaIzBaze) {
+				System.out.println("Ime: " + ssd.getImeStudenta());
+				System.out.println("Prezime: " + ssd.getPrezimeStudenta());
+				System.out.println("Index: " + ssd.getBrojIndexa());
+				System.out.println("Drzava: " + ssd.getDrzava());
+				System.out.println("Finansije: " + ssd.getFinansije());
+				System.out.println("Smer: " + ssd.getSmer());
+				System.out.println("Poeni: " + ssd.getPoeni());
+				System.out.println("======================");
 			}
-		} else {
-			System.out.println("vratiSveTipoveUsera_SQL nista nije vratio...");
 		}
-		
-		System.out.println("===========================================");
-		List<TipUsera> sviTipoviEnum = crud.vratiSveTipoveUsera_HQL();
-		if (sviTipoviEnum != null) {
-			System.out.println("Vracam sve tipove usera kroz HQL:");
-			for (TipUsera enumTip : sviTipoviEnum) {
-				System.out.println(enumTip);
-			}
-		} else {
-			System.out.println("vratiSveTipoveUsera_HQL nista nije vratio...");
-		}
-		
-		
-		
 
 	}
 }
