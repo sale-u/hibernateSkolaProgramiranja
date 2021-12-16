@@ -96,10 +96,11 @@ public class SlozeneHqlMetode {
 	
 	// ****************** DOMACI 15.12.2021 ********************************
 	
-public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, Finansije finansije, String smer) {
+public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, String finansije, String smer) {
 	
 	// koristi posebnu varijantu slozenog modela StudentSmerDetailsHQL
-		
+	// polje finansije je prebaceno iz Enum Finansije tipa u String finansije da bi HQL upit lepo radio
+	
 		List<StudentSmerDetailsHQL> povratnaLista = new ArrayList<>();
 		
 		Session session = factory.openSession();
@@ -122,8 +123,8 @@ public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, Finansi
 				hql += " AND drzava = :drz ";
 			}
 			
-			if (finansije != null) {
-				hql += " AND finansije = :fin ";
+			if (!finansije.equals("")) {
+				hql += " AND enumFinansije = :fin ";
 				System.out.println("Finansije = *" + finansije + "*");
 			}
 			
@@ -137,8 +138,8 @@ public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, Finansi
 				query.setParameter("drz", drzava);
 			}
 			
-			if (finansije != null) {
-				query.setParameter("fin", finansije);  // ovde ne radi dobro dodelu vrednosti parametra
+			if (!finansije.equals("")) {
+				query.setParameter("fin", finansije);  // 16.12.21 predavac prebacio tip iz Finansije u String da bi radilo
 			}
 			
 			if (!smer.equals("")) {
@@ -155,7 +156,7 @@ public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, Finansi
 				ssd.setPrezimeStudenta(o[1].toString());
 				ssd.setBrojIndexa(o[2].toString());
 				ssd.setDrzava(o[3].toString());
-				ssd.setFinansije((Finansije)o[4]);
+				ssd.setFinansije(o[4].toString());
 				ssd.setSmer(o[5].toString());
 				ssd.setPoeni((double)o[6]);
 				

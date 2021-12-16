@@ -83,23 +83,23 @@ public class HibernateController {
 //			adresa.setPostanskiBroj("21000");
 //		
 //		Contact kontakt1 = new Contact();
-//			kontakt1.setEmail("prviMail@gmail.com");
-//			kontakt1.setFiksniTelefon("021333444");
-//			kontakt1.setMobilniTelefon("064111222");
+//			kontakt1.setEmail("prviMail2@gmail.com");
+//			kontakt1.setFiksniTelefon("021888111");
+//			kontakt1.setMobilniTelefon("06499992222");
 //
 //		Contact kontakt2 = new Contact();
-//			kontakt2.setEmail("drugiMail@gmail.com");
-//			kontakt2.setFiksniTelefon("021111444");
-//			kontakt2.setMobilniTelefon("061333222");	
+//			kontakt2.setEmail("drugiMail2@gmail.com");
+//			kontakt2.setFiksniTelefon("0216666111");
+//			kontakt2.setMobilniTelefon("061456000");	
 //		List<Contact> kontakti = new ArrayList<Contact>();
 //			kontakti.add(kontakt1);
 //			kontakti.add(kontakt2);
 //			
-//		String imeStudenta = "Lala";
-//		String prezimeStudenta = "Lalic";
-//		String brojIndexa = "987ER";
-//		Finansije finansije = Finansije.POLAPOLA;
-//		
+//		String imeStudenta = "Mika";
+//		String prezimeStudenta = "Mikic";
+//		String brojIndexa = "257";
+//		Finansije finansije = Finansije.BUDZET;
+////		
 //		dao.insertStudent(imeStudenta, prezimeStudenta, brojIndexa, adresa, finansije, kontakti);
 
 //		Student student = dao.vratiStudentaPoId(5);
@@ -234,18 +234,15 @@ public class HibernateController {
 //		} else {
 //			System.out.println("vratiSveTipoveUsera_HQL nista nije vratio...");
 //		}
-		
-		
+
 		// ******************* 14.12.2021 *********************
-		
+
 		SlozeneHqlMetode crud = new SlozeneHqlMetode();
 		
 		// definisemo vise WHERE filtera u SQL upitu 
 		String drzava = "Srbija";
-		Finansije finansije = Finansije.BUDZET;
+		String finansije = "BUDZET";
 		String smer = "";
-		
-//		List<StudentSmerDetails> listaIzBaze = crud.vratiSlozenuTabelu(drzava, finansije, smer);
 		
 		List<StudentSmerDetailsHQL> listaIzBaze = crud.vratiSlozenuTabelu_HQL(drzava, finansije, smer);
 		
@@ -263,4 +260,5 @@ public class HibernateController {
 		}
 
 	}
+
 }

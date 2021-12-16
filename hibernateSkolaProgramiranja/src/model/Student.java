@@ -3,9 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,7 +36,10 @@ public class Student {
 							// jer anotacijom @Embedded je receno da ce polja klase Adresa
 							// biti dodatne kolone tabele Student.
 	
-	@Enumerated
+	// 16.12.21 Enum polje smo izmenili predavac i ja kako bi pravilno radila metoda vratiSlozenuTabelu_HQL
+	// vidi objasnjenje predavaca od 16.12.21
+	@Enumerated(EnumType.STRING)	// sada ce se enum finansije ponasati kao String i tako zapisati u bazi (umesto int kao do sada)
+	@Column(name="enumFinansije")	// pa smo i izmenili ime kolone u bazi pa ponovo rekreirali Student tabelu
 	private Finansije finansije;	// enum podatak
 	
 	@ElementCollection (fetch = FetchType.EAGER)	// po defaultu FetchType je LAZY, a moze da se stavi i EAGER

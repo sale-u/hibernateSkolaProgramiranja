@@ -8,7 +8,8 @@ public class StudentSmerDetailsHQL {
 	private String prezimeStudenta;
 	private String brojIndexa;
 	private String drzava;
-	private Finansije finansije;	// ovo u varijanti HQL mora biti klase Finansije (a ne int kao kod Native SQLa)
+	private String finansije;	// ovo u varijanti HQL mora biti String kako bi radilo OK (u Native SQL varijanti, ovde je integer)
+	// vidi objasnjenje predavaca od 16.12.21
 	private String smer;
 	private double poeni;
 	
@@ -37,10 +38,10 @@ public class StudentSmerDetailsHQL {
 	public void setDrzava(String drzava) {
 		this.drzava = drzava;
 	}
-	public Finansije getFinansije() {
+	public String getFinansije() {
 		return finansije;
 	}
-	public void setFinansije(Finansije finansije) {
+	public void setFinansije(String finansije) {
 		this.finansije = finansije;
 	}
 	public String getSmer() {
