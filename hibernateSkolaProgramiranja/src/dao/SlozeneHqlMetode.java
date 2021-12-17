@@ -96,7 +96,7 @@ public class SlozeneHqlMetode {
 	
 	// ****************** DOMACI 15.12.2021 ********************************
 	
-public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, String finansije, String smer) {
+public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, Finansije finansije, String smer) {
 	
 	// koristi posebnu varijantu slozenog modela StudentSmerDetailsHQL
 	// polje finansije je prebaceno iz Enum Finansije tipa u String finansije da bi HQL upit lepo radio
@@ -123,7 +123,7 @@ public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, String 
 				hql += " AND drzava = :drz ";
 			}
 			
-			if (!finansije.equals("")) {
+			if (finansije != null) {
 				hql += " AND enumFinansije = :fin ";
 				System.out.println("Finansije = *" + finansije + "*");
 			}
@@ -138,8 +138,9 @@ public List<StudentSmerDetailsHQL> vratiSlozenuTabelu_HQL(String drzava, String 
 				query.setParameter("drz", drzava);
 			}
 			
-			if (!finansije.equals("")) {
-				query.setParameter("fin", finansije);  // 16.12.21 predavac prebacio tip iz Finansije u String da bi radilo
+			if (finansije != null) {
+				// name() vraca String ime ove konkretne vrednosti enum-a
+				query.setParameter("fin", finansije.name());  // 16.12.21 predavac prebacio tip iz Finansije u String da bi radilo
 			}
 			
 			if (!smer.equals("")) {

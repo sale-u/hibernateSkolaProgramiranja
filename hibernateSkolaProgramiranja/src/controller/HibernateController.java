@@ -241,7 +241,7 @@ public class HibernateController {
 		
 		// definisemo vise WHERE filtera u SQL upitu 
 		String drzava = "Srbija";
-		String finansije = "BUDZET";
+		Finansije finansije = null;
 		String smer = "";
 		
 		List<StudentSmerDetailsHQL> listaIzBaze = crud.vratiSlozenuTabelu_HQL(drzava, finansije, smer);
